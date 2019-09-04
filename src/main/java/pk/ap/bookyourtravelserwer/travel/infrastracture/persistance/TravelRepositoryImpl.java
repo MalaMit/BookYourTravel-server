@@ -43,4 +43,9 @@ public class TravelRepositoryImpl extends SimpleJpaRepository<Travel, Long> impl
             return list;
         }
     }
+
+    @Override
+    public Optional<Travel> getById(Long id) {
+        return Optional.empty();
+    }
 }

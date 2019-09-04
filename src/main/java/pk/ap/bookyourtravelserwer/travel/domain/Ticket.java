@@ -33,6 +33,9 @@ public class Ticket {
     @DateTimeFormat
     private String date_of_purchase;
 
+    @NotNull
+    private String typeSeatPlace;
+
     public Long getId() {
         return id;
     }
@@ -63,5 +66,13 @@ public class Ticket {
 
     public void setDate_of_purchase(String date_of_purchase) {
         this.date_of_purchase = date_of_purchase;
+    }
+
+    public String getTypeSeatPlace() {
+        return typeSeatPlace;
+    }
+
+    public void setTypeSeatPlace(String typeSeatPlace) {
+        this.typeSeatPlace = typeSeatPlace;
     }
 }

@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import pk.ap.bookyourtravelserwer.travel.domain.Ticket;
 import pk.ap.bookyourtravelserwer.travel.domain.Travel;
 import pk.ap.bookyourtravelserwer.travel.domain.dto.SearchConnectionDto;
 
@@ -46,6 +47,11 @@ public class TravelRepositoryImpl extends SimpleJpaRepository<Travel, Long> impl
 
     @Override
     public Optional<Travel> getById(Long id) {
-        return Optional.empty();
+        String sqlQuery = "SELECT t From Travel t where t.id=:id";
+        Query query = em.createQuery(sqlQuery);
+        query.setParameter("id", id);
+
+        List<Travel> travelList = query.getResultList();
+        return Optional.of(travelList.get(0));
     }
 }

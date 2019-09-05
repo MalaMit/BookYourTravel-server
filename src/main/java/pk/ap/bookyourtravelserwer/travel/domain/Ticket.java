@@ -36,6 +36,17 @@ public class Ticket {
     @NotNull
     private String typeSeatPlace;
 
+    public Ticket() {
+    }
+
+    public void buyTicketOn(Travel travel){
+        this.travel.add(travel);
+    }
+
+    public void buyTicketBy(User user){
+        this.users.add(user);
+    }
+
     public Long getId() {
         return id;
     }

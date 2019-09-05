@@ -6,13 +6,6 @@ public class TicketDto {
     int trainConnection;
     int userID;
 
-    public TicketDto(String date_of_purchase, String typeSeatPlace, int trainConnection, int userID) {
-        this.date_of_purchase = date_of_purchase;
-        this.typeSeatPlace = typeSeatPlace;
-        this.trainConnection = trainConnection;
-        this.userID = userID;
-    }
-
     public String getDate_of_purchase() {
         return date_of_purchase;
     }

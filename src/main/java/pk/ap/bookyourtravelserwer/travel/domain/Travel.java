@@ -48,17 +48,6 @@ public class Travel {
     @NotNull
     private float standing_places_price;
 
-    @ManyToMany(mappedBy = "travel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    Set<Ticket> tickets = new HashSet<>();
-
-    public Set<Ticket> getTickets() {
-        return tickets;
-    }
-
-    public void setTickets(Set<Ticket> tickets) {
-        this.tickets = tickets;
-    }
-
     public void setId(Long id) {
         this.id = id;
     }

@@ -8,6 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 import pk.ap.bookyourtravelserwer.travel.domain.Ticket;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import java.util.List;
+import java.util.Optional;
 
 @Transactional
 @Repository
@@ -25,5 +28,42 @@ public class TicketRepositoryImpl extends SimpleJpaRepository<Ticket, Long> impl
     @Override
     public Ticket saveTicket(Ticket ticket) {
         return save(ticket);
+    }
+
+    @Override
+    public List<Ticket> getBoughtTicketByUser(long userID) {
+        String sqlQuery = "Select t from Ticket t join t.user u where u.id=:userID";
+        Query query = em.createQuery(sqlQuery);
+        query.setParameter("userID", userID);
+
+        List<Ticket> tickets = query.getResultList();
+
+        if (tickets.isEmpty())
+        {
+            throw new IllegalArgumentException("No ticket found for user = " + userID);
+        }else {
+            return tickets;
+        }
+    }
+
+    @Override
+    public void deleteUserTicket(long ticketID) {
+        Optional<Ticket> foundedTicketOptional = getTicketByID(ticketID);
+        Ticket foundedTicket = foundedTicketOptional.orElseThrow(() -> new IllegalArgumentException("No ticket with id:" + ticketID));
+        delete(foundedTicket);
+    }
+
+    @Override
+    public Optional<Ticket> getTicketByID(long ticketID) {
+        String sqlQuery = "SELECT t From Ticket t where t.id = :id";
+        Query query = em.createQuery(sqlQuery);
+        query.setParameter("id",ticketID);
+        List<Ticket> list = query.getResultList();
+
+        if(list.isEmpty()){
+            throw new IllegalArgumentException("No show with id:" + ticketID);
+        } else {
+            return Optional.of(list.get(0));
+        }
     }
 }

@@ -1,12 +1,16 @@
 package pk.ap.bookyourtravelserwer.travel.domain;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "travel")
+@Table(name = "Travel")
 public class Travel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,7 +23,8 @@ public class Travel {
     private String to_City;
 
     @NotNull
-    private String  depart_date;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate  depart_date;
 
     @NotNull
     private String depart_time;
@@ -28,7 +33,8 @@ public class Travel {
     private String  arrival_time;
 
     @NotNull
-    private String arrival_date;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate arrival_date;
 
     @NotNull
     private int first_class;
@@ -48,8 +54,22 @@ public class Travel {
     @NotNull
     private float standing_places_price;
 
-    public void setId(Long id) {
-        this.id = id;
+    public Travel() {
+    }
+
+    public Travel(@NotNull String from_City, @NotNull String to_City, @NotNull LocalDate depart_date, @NotNull String depart_time, @NotNull String arrival_time, @NotNull LocalDate arrival_date, @NotNull int first_class, @NotNull int second_class, @NotNull int standing_places, @NotNull float first_class_price, @NotNull float second_class_price, @NotNull float standing_places_price) {
+        this.from_City = from_City;
+        this.to_City = to_City;
+        this.depart_date = depart_date;
+        this.depart_time = depart_time;
+        this.arrival_time = arrival_time;
+        this.arrival_date = arrival_date;
+        this.first_class = first_class;
+        this.second_class = second_class;
+        this.standing_places = standing_places;
+        this.first_class_price = first_class_price;
+        this.second_class_price = second_class_price;
+        this.standing_places_price = standing_places_price;
     }
 
     public void setFrom_City(String from_City) {
@@ -60,7 +80,7 @@ public class Travel {
         this.to_City = to_City;
     }
 
-    public void setDepart_date(String depart_date) {
+    public void setDepart_date(LocalDate depart_date) {
         this.depart_date = depart_date;
     }
 
@@ -72,7 +92,7 @@ public class Travel {
         this.arrival_time = arrival_time;
     }
 
-    public void setArrival_date(String arrival_date) {
+    public void setArrival_date(LocalDate arrival_date) {
         this.arrival_date = arrival_date;
     }
 
@@ -112,7 +132,7 @@ public class Travel {
         return to_City;
     }
 
-    public String getDepart_date() {
+    public LocalDate getDepart_date() {
         return depart_date;
     }
 
@@ -124,7 +144,7 @@ public class Travel {
         return arrival_time;
     }
 
-    public String getArrival_date() {
+    public LocalDate getArrival_date() {
         return arrival_date;
     }
 

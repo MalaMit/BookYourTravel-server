@@ -5,12 +5,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import pk.ap.bookyourtravelserwer.travel.domain.Ticket;
 import pk.ap.bookyourtravelserwer.travel.domain.Travel;
 import pk.ap.bookyourtravelserwer.travel.domain.dto.SearchConnectionDto;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,12 +31,14 @@ public class TravelRepositoryImpl extends SimpleJpaRepository<Travel, Long> impl
     }
 
     @Override
-    public List<Travel> searchTravel(SearchConnectionDto searchConnectionDto) {
-        String sqlQuery = "SELECT t From Travel t where t.from_City =:from_City and t.to_City =:to_City and t.depart_date =:depart_date";
+    public List<Travel> searchTravel(SearchConnectionDto searchConnectionDto) throws ParseException {
+
+       LocalDate newDate = parseDate(searchConnectionDto.getDepart_date(), "yyyy-MM-dd");
+
+        String sqlQuery = "SELECT t From Travel t where t.from_City=:from_City and t.to_City=:to_City and t.depart_date='"+newDate+"'";
         Query query = em.createQuery(sqlQuery);
         query.setParameter("from_City", searchConnectionDto.getFrom_city());
         query.setParameter("to_City", searchConnectionDto.getTo_City());
-        query.setParameter("depart_date", searchConnectionDto.getDepart_date());
         List<Travel> list = query.getResultList();
 
         // todo MK there needs to be created mechanism of throwing 404 via REST
@@ -53,5 +57,12 @@ public class TravelRepositoryImpl extends SimpleJpaRepository<Travel, Long> impl
 
         List<Travel> travelList = query.getResultList();
         return Optional.of(travelList.get(0));
+    }
+
+    private LocalDate parseDate(String date, String format) throws ParseException
+    {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+        LocalDate localDate = LocalDate.parse(date, formatter);
+        return localDate;
     }
 }

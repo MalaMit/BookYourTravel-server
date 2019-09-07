@@ -13,8 +13,10 @@ import pk.ap.bookyourtravelserwer.user.domain.User;
 import pk.ap.bookyourtravelserwer.user.infrastracture.persistance.UserRepository;
 import pk.ap.bookyourtravelserwer.util.DtoAssembler;
 
+import javax.websocket.server.PathParam;
+import java.text.ParseException;
 import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/travel")
@@ -35,7 +37,7 @@ public class TravelControler {
 
     @PostMapping(value = "/search")
     @ResponseBody
-    public List<Travel> searchTravelConnection(@RequestBody SearchConnectionDto searchConnectionDto){
+    public List<Travel> searchTravelConnection(@RequestBody SearchConnectionDto searchConnectionDto) throws ParseException {
         return travelRepository.searchTravel(searchConnectionDto);
     }
 
@@ -53,5 +55,15 @@ public class TravelControler {
 
         ticketRepository.saveTicket(ticket);
 
+    }
+
+    @GetMapping(value = "/boughtTicket/{id}")
+    public List<Ticket> boughtTicketByUser(@PathVariable String id){
+        return ticketRepository.getBoughtTicketByUser(Long.valueOf(id));
+    }
+
+    @DeleteMapping(value = "/delete/{id}")
+    public void deleteTicket(@PathVariable String id){
+        ticketRepository.deleteUserTicket(Long.valueOf(id));
     }
 }

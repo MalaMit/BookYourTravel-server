@@ -25,9 +25,6 @@ public class User {
     @Email
     private String email;
 
-    @ManyToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    Set<Ticket> tickets = new HashSet<>();
-
     public User() { //Hibernate purposes
     }
 
@@ -35,14 +32,6 @@ public class User {
         this.name = name;
         this.password = password;
         this.email = email;
-    }
-
-    public Set<Ticket> getTickets() {
-        return tickets;
-    }
-
-    public void setTickets(Set<Ticket> tickets) {
-        this.tickets = tickets;
     }
 
     public User setId(Long id) {

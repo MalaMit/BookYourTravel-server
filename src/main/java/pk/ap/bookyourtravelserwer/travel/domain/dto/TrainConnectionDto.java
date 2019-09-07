@@ -1,15 +1,18 @@
 package pk.ap.bookyourtravelserwer.travel.domain.dto;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 public class TrainConnectionDto {
     private long id;
     private String from_City;
     private String to_City;
-    private String depart_date;
+    private LocalDate depart_date;
     private String depart_time;
-    private String arrival_date;
+    private LocalDate arrival_date;
     private String arrival_time;
 
-    public TrainConnectionDto(long id, String from_City, String to_City, String depart_date, String depart_time, String arrival_date, String arrival_time) {
+    public TrainConnectionDto(long id, String from_City, String to_City, LocalDate depart_date, String depart_time, LocalDate arrival_date, String arrival_time) {
         this.id = id;
         this.from_City = from_City;
         this.to_City = to_City;
@@ -43,11 +46,11 @@ public class TrainConnectionDto {
         this.to_City = to_City;
     }
 
-    public String getDepart_date() {
+    public LocalDate getDepart_date() {
         return depart_date;
     }
 
-    public void setDepart_date(String depart_date) {
+    public void setDepart_date(LocalDate depart_date) {
         this.depart_date = depart_date;
     }
 
@@ -59,11 +62,11 @@ public class TrainConnectionDto {
         this.depart_time = depart_time;
     }
 
-    public String getArrival_date() {
+    public LocalDate getArrival_date() {
         return arrival_date;
     }
 
-    public void setArrival_date(String arrival_date) {
+    public void setArrival_date(LocalDate arrival_date) {
         this.arrival_date = arrival_date;
     }
 

@@ -47,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // todo this can be good. Instead setting in UI that if user isn't logged, login page should appear,
         // this can be done here - need of testing
-//        http.exceptionHandling().accessDeniedPage("/login");
+        // http.exceptionHandling().accessDeniedPage("/login");
 
 
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

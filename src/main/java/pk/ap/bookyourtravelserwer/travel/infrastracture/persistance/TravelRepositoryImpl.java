@@ -20,7 +20,6 @@ import java.util.Optional;
 @Repository
 public class TravelRepositoryImpl extends SimpleJpaRepository<Travel, Long> implements TravelRepository{
 
-
     private EntityManager em;
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
@@ -41,6 +40,8 @@ public class TravelRepositoryImpl extends SimpleJpaRepository<Travel, Long> impl
         query.setParameter("to_City", searchConnectionDto.getTo_City());
         List<Travel> list = query.getResultList();
 
+        assert  list.isEmpty() : "No find travel";
+
         // todo MK there needs to be created mechanism of throwing 404 via REST
         if (list.isEmpty()) {
             throw new IllegalArgumentException("No find travel");
@@ -56,6 +57,9 @@ public class TravelRepositoryImpl extends SimpleJpaRepository<Travel, Long> impl
         query.setParameter("id", id);
 
         List<Travel> travelList = query.getResultList();
+
+        assert travelList.isEmpty() : "No find travel by ID";
+
         return Optional.of(travelList.get(0));
     }
 

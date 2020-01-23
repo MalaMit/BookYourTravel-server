@@ -38,6 +38,8 @@ public class TicketRepositoryImpl extends SimpleJpaRepository<Ticket, Long> impl
 
         List<Ticket> tickets = query.getResultList();
 
+        assert tickets.isEmpty() : "No ticket found";
+
         if (tickets.isEmpty())
         {
             throw new IllegalArgumentException("No ticket found for user = " + userID);
@@ -59,6 +61,8 @@ public class TicketRepositoryImpl extends SimpleJpaRepository<Ticket, Long> impl
         Query query = em.createQuery(sqlQuery);
         query.setParameter("id",ticketID);
         List<Ticket> list = query.getResultList();
+
+        assert list.isEmpty() : "Can't find this ticket";
 
         if(list.isEmpty()){
             throw new IllegalArgumentException("No show with id:" + ticketID);

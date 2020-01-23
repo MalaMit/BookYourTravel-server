@@ -5,6 +5,7 @@ public class SearchConnectionDto {
     private String depart_time;
     private String from_City;
     private String to_City;
+    
 
     public SearchConnectionDto(String depart_date, String depart_time, String from_City, String to_City) {
         this.depart_date = depart_date;

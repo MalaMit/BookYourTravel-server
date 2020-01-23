@@ -57,6 +57,8 @@ public class UserRepositoryImpl extends SimpleJpaRepository<User, Long> implemen
         query.setParameter("id", id);
         List<User> list = query.getResultList();
 
+        assert list.isEmpty() : "No user founs";
+
         // todo MK there needs to be created mechanism of throwing 404 via REST
         if (list.isEmpty()) {
             throw new IllegalArgumentException("No user with id:" + id);
@@ -103,6 +105,7 @@ public class UserRepositoryImpl extends SimpleJpaRepository<User, Long> implemen
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+
         User user = this.getByName(s).orElseThrow(() -> new UsernameNotFoundException("User ["+ s + "] not found during authorization"));
 
         return org.springframework.security.core.userdetails.User.builder()
